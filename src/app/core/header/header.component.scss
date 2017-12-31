@@ -1,0 +1,15 @@
+.header {
+  display:flex;
+  position:fixed;
+  &-icon {
+     object-fit: cover;
+     width: 28px;
+   }
+  &-icon-wrapper {
+     width:44px;
+     padding:8px;
+   }
+  ul {
+
+  }
+}
