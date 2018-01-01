@@ -12,7 +12,7 @@ export class DemoComponent implements OnInit {
   private possibleCharacters = 'abcdefghijklmnopqrstuvwxyz';
   private MAXINV = 200;
 
-  target = 'huynhducdat';
+  target = 'kienancac';
 
   curGen: Array<Individual>;
   matingPool: Array<Individual>;
