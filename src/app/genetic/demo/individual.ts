@@ -27,6 +27,19 @@ export class Individual {
     this.fitness = sum / this.content.length * 100;
   }
 
+  crossover(partner: Individual) {
+    let child = new Individual('', this.target);
+    const mid = Math.floor(Math.random() * (this.content.length - 1));
+    for (let i = 0; i < this.content.length; i++) {
+      if (i < mid) {
+        child.content += this.content[i];
+      } else {
+        child.content += partner.content[i];
+      }
+    }
+    return child
+  }
+
   attemptMutate(rate: number) {
     for (let i = 0; i < this.content.length; i++){
       let p = Math.random() * 100;

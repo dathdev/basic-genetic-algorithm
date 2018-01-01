@@ -10,14 +10,14 @@ import {delay} from "rxjs/operators";
 export class DemoComponent implements OnInit {
 
   private possibleCharacters = 'abcdefghijklmnopqrstuvwxyz';
-  private MAXINV = 10;
+  private MAXINV = 200;
 
   target = 'huynhducdat';
 
   curGen: Array<Individual>;
   matingPool: Array<Individual>;
 
-  mutateRate = 0.01;
+  mutateRate = 0.1;
   sumFitness = 0;
   maxFitness = 0;
   bestString = '';
@@ -77,9 +77,7 @@ export class DemoComponent implements OnInit {
       // console.log('parents: ' + p1.content + '-' + p1.getFitness() + '|' + p2.content + '-' + p2.getFitness());
 
       //crossover
-      p = Math.floor(Math.random() * (p1.content.length - 1));
-      let child = p1;
-      child.content = p1.content.substring(0, p) + p2.content.substring(p);
+      let child = p1.crossover(p2);
       //mutation
       child.attemptMutate(this.mutateRate);
       // console.log (p1);
