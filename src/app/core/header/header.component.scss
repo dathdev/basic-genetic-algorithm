@@ -1,14 +1,36 @@
 .header {
   display:flex;
   position:fixed;
+  width:100%;
+  background: #ffffff;
+  top:0;
+  left:0;
+  &-tab {
+    display:block;
+    position:relative;
+    padding: 8px;
+    color: #000000;
+    text-decoration: none;
+    &:hover {
+      background: #2920ff;
+      color: #ffffff;
+    }
+    &-active {
+      background: #0d0094;
+      color: #ffffff;
+    }
+  }
   &-icon {
-     object-fit: cover;
-     width: 28px;
-   }
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: cover;
+    width: 28px;
+  }
   &-icon-wrapper {
      width:44px;
      padding:8px;
-   }
+  }
   ul {
 
   }

@@ -1,0 +1,12 @@
+.genetic-demo {
+  margin-top:40px;
+  display:flex;
+  &-details {
+    width:200px;
+    position: fixed;
+    left:16px;
+  }
+  &-elements {
+    margin-left:232px;
+  }
+}

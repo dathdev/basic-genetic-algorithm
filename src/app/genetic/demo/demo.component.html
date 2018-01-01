@@ -1,0 +1,18 @@
+<div class="genetic-demo">
+  <div class="genetic-demo-details">
+    <p>Target: "{{target}}"</p>
+    <p>Population: {{curGen.length}}</p>
+    <p>Average fitness: {{sumFitness/curGen.length}}</p>
+    <p>Best: {{bestString}}</p>
+    <p><a (click)="newGeneration()" class="button">New generation</a></p>
+    <p><a (click)="nextTenGeneration()" class="button">Auto generate</a></p>
+  </div>
+  <div class="genetic-demo-elements">
+    <ul>
+      <li *ngFor="let e of curGen">
+        <p>{{e.content}} - Fitness: {{e.getFitness()}}</p>
+      </li>
+    </ul>
+  </div>
+</div>
+
