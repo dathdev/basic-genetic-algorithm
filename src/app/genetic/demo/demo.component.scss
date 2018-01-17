@@ -1,5 +1,4 @@
 .genetic-demo {
-  margin-top:40px;
   display:flex;
   &-details {
     width:200px;
@@ -7,6 +6,9 @@
     left:16px;
   }
   &-elements {
-    margin-left:232px;
+   margin-left:232px;
+   &-list {
+     list-style-type: none;
+   }
   }
 }

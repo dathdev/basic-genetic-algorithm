@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Individual} from './individual';
-import {delay} from "rxjs/operators";
 
 @Component({
   selector: 'app-demo',
@@ -12,7 +11,7 @@ export class DemoComponent implements OnInit {
   private possibleCharacters = 'abcdefghijklmnopqrstuvwxyz';
   private MAXINV = 200;
 
-  target = 'kienancac';
+  target = 'abcdefghij';
 
   curGen: Array<Individual>;
   matingPool: Array<Individual>;
@@ -22,6 +21,7 @@ export class DemoComponent implements OnInit {
   maxFitness = 0;
   bestString = '';
   found = false;
+  currentTimeout;
 
   constructor() {
 
@@ -32,7 +32,7 @@ export class DemoComponent implements OnInit {
     this.sumFitness = 0;
     this.maxFitness = 0;
     for (let i = 0; i < this.MAXINV; i++) {
-      let newInv = new Individual(this.randomString(this.target.length), this.target)
+      let newInv = new Individual(this.randomString(5), this.target)
       this.curGen.push(newInv);
       this.sumFitness += newInv.getFitness();
       if (newInv.getFitness() > this.maxFitness){
@@ -59,29 +59,31 @@ export class DemoComponent implements OnInit {
         this.matingPool.push(this.curGen[i]);
     }
 
-    console.log (this.matingPool);
-
     this.curGen = [];
 
     this.sumFitness = 0;
     this.maxFitness = 0;
 
     for (let i = 0; i < this.MAXINV; i++) {
-      //pick 2 parents
+      // pick 2 parents
       let p1: Individual;
       let p2: Individual;
-      let p = Math.floor(Math.random() * this.matingPool.length);
+      let p = Math.floor(Math.random() * this.matingPool.length); // random parent in mating pool
       p1 = this.matingPool[p];
-      p = Math.floor(Math.random() * this.matingPool.length);
+      p = Math.floor(Math.random() * this.matingPool.length); // random parent in mating pool
       p2 = this.matingPool[p];
-      // console.log('parents: ' + p1.content + '-' + p1.getFitness() + '|' + p2.content + '-' + p2.getFitness());
 
-      //crossover
-      let child = p1.crossover(p2);
-      //mutation
-      child.attemptMutate(this.mutateRate);
-      // console.log (p1);
-      if (child.content === this.target) {
+      // crossover
+      let child = p1.crossover(p2); // p1 fucks p2
+
+      // mutation
+      child.attemptMutate(this.mutateRate); // X-string arrives!
+
+      // update target
+      child.setTarget(this.target);
+
+      // find best individual and calculate fitness sum
+      if (this.maxFitness === 100) {
         this.found = true;
       }
       this.sumFitness += child.getFitness();
@@ -89,15 +91,23 @@ export class DemoComponent implements OnInit {
         this.maxFitness = child.getFitness();
         this.bestString = child.content;
       }
+
+      // add the new born child into the generation pool
+
       this.curGen.push(child);
     }
   }
 
-  nextTenGeneration() {
-    // setTimeout(() => {
-    for (let i = 0; i < 10; i++){
-      this.newGeneration();
-    }
-    // });
+  autoGenerate() {
+    this.currentTimeout = setTimeout(() => {
+      if (this.maxFitness !== 100) {
+        this.newGeneration();
+        this.autoGenerate();
+      }
+   }, 100);
+  }
+
+  stopAuto() {
+    clearTimeout(this.currentTimeout);
   }
 }

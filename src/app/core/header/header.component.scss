@@ -19,6 +19,9 @@
       background: #0d0094;
       color: #ffffff;
     }
+    &-wrapper {
+      display: flex;
+    }
   }
   &-icon {
     display:block;
